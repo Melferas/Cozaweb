@@ -15,8 +15,6 @@ package connector;
  */
 public class AmazonRaspberry {
 
-    private int userkey; // Clave de usuario para conectarse a Amazon
-    private int secretkey; // Clave secreta para conectarse a Amazon (pswd)
     private int temp; // Temperatura
     private double lightLvl; // Nivel de luz
     private boolean presence; // Presencia (False = no, True = si)
