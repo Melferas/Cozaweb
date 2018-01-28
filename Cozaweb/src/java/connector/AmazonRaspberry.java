@@ -79,11 +79,37 @@ public class AmazonRaspberry {
     public void setPresence(boolean presence) {
         this.presence = presence;
     }
-       
+
     /**
      * @return the state
      */
-    public mode getState() {
+    public String getState() {
+
+        String res = "";
+
+        switch (state) {
+            case on:
+                res = "ON";
+                break;
+
+            case off:
+                res = "OFF";
+                break;
+
+            case pres:
+                res = "Presence mode";
+                break;
+
+            default:
+                res = "Broken";
+                break;
+        }
+
+        return res;
+    }
+
+    public mode getEnumState() {
+
         return state;
     }
 
@@ -93,7 +119,7 @@ public class AmazonRaspberry {
     public void setState(mode state) {
         this.state = state;
     }
-    
+
     public void upTemp() {
         temp++;
     }
@@ -111,7 +137,13 @@ public class AmazonRaspberry {
     }
 
     public void switchMode() {
-        getState().getNext();
+        
+        getEnumState().getNext();
+        
+        if(state.equals(mode.pres))
+        {
+            setPresence(true);
+        }
     }
 
 }
