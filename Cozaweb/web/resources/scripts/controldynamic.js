@@ -4,6 +4,25 @@
  */
 $(document).ready(function () {
 
+    $.post('siteController.jsp', {
+        temp: ""
+    }, function (responseText) {
+        $('#currentTemp').text(responseText);
+    });
+
+    $.post('siteController.jsp', {
+        light: ""
+    }, function (responseText) {
+        $('#currentLight').text(responseText);
+    });
+
+    $.post('siteController.jsp', {
+        pres: ""
+    }, function (responseText) {
+        $('#currentPres').text(responseText);
+    });
+
+
     $('#controlTempplus').click(function ()
     {
         $.post('siteController.jsp', {

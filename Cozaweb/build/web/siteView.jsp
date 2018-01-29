@@ -9,7 +9,7 @@
 <%@page import="com.amazonaws.services.iot.client.sample.sampleUtil.SampleUtil"%>
 <%@page import="com.amazonaws.services.iot.client.*"%>
 <%@page import="connector.AmazonRaspberry" contentType="text/html" pageEncoding="UTF-8"%>
-<%@include file="/resources/cert/f4dafc24ae-certificate.pem.crt"%>
+<%--@include file="/resources/cert/f4dafc24ae-certificate.pem.crt"--%>
 <%-- @include file="/resources/cert/f4dafc24ae-private.pem.key" --%>
 
 <!DOCTYPE html>
@@ -23,32 +23,34 @@
         <script type="text/javascript" src="resources/scripts/controldynamic.js" ></script>
     </head>
     <%
-        AmazonRaspberry arp = new AmazonRaspberry();
-
         String clientEndpoint = "a3hsjmb0q4i06f.iot.eu-west-1.amazonaws.com";       // replace <prefix> and <region> with your own
         String clientId = "webapplicosa";                              // replace with your own client ID. Use unique client IDs for concurrent connections.
-        String certificateFile = "f4dafc24ae-certificate.pem.crt";                       // X.509 based certificate file
-        String privateKeyFile = "f4dafc24ae-private.pem.key";                        // PKCS#1 or PKCS#8 PEM encoded private key file
+        String certificateFile = "/resources/cert/f4dafc24ae-certificate.pem.crt";                       // X.509 based certificate file
+        String privateKeyFile = "/resources/cert/f4dafc24ae-private.pem.key";                        // PKCS#1 or PKCS#8 PEM encoded private key file
 
 
         
 // SampleUtil.java and its dependency PrivateKeyReader.java can be copied from the sample source code.
 // Alternatively, you could load key store directly from a file - see the example included in this README.
+/*
    KeyStorePasswordPair pair = SampleUtil.getKeyStorePasswordPair(certificateFile, privateKeyFile);
-        AWSIotMqttClient client = new AWSIotMqttClient(clientEndpoint, clientId, pair.keyStore, pair.keyPassword);
+   AWSIotMqttClient client = new AWSIotMqttClient(clientEndpoint, clientId, pair.keyStore, pair.keyPassword);
 
 // optional parameters can be set before connect()
         client.connect();
+        
+        client.onConnectionSuccess();
+*/
 
     %>
     <body>
         <!-- Control de temperatura -->
         <div class="supercontainer">
             <div class="titulecontainer">
-                <h1 class="temptext"><%= client.getConnectionStatus() %></h1>
+                <h1 class="temptext">Control de temperatura</h1>
             </div>
             <div>
-                <p id="currentTemp" class="currentText"><%= arp.getTemp()%></p>
+                <p id="currentTemp" class="currentText"></p>
             </div>
             <div class="buttoncontainer">
                 <button id="controlTempplus" class="controlButton">
@@ -70,7 +72,7 @@
                 <h1 class="lighttext"> Control de luz </h1>   
             </div>
             <div>
-                <p id="currentLight" class="currentText"><%= arp.getLightLvl() * 100%>%</p>
+                <p id="currentLight" class="currentText"></p>%
             </div>
             <div class="buttoncontainer">
                 <button id="controlLuzplus" class="controlButton">
@@ -91,10 +93,10 @@
                 <h1 class="prestext"> Presencia </h1>   
             </div>
             <div>
-                <p id="currentPres" class="currentText"><%= arp.getState()%></p>
+                <p id="currentPres" class="currentText"></p>
             </div>
             <div class="buttoncontainer">
-                <button id="controlPresChange" class="controlButton" action="<% arp.switchMode();%>">
+                <button id="controlPresChange" class="controlButton">
                     Cambiar
                 </button>
             </div>
